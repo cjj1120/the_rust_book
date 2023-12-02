@@ -69,15 +69,37 @@ The match expression is a control flow construct that does just this when used w
 ```
 
 
+## using `match` with enum, option<T> etc...
+Notes: 
+```
+Combining match and enums is useful in many situations. You’ll see this pattern a lot in Rust code: match against an enum, bind a variable to the data inside, and then execute code based on it. It’s a bit tricky at first, but once you get used to it, you’ll wish you had it in all languages. It’s consistently a user favorite.
+```
 
 
+## A special variable to catch all `_`
+Notes: 
+```
+Rust also has a pattern we can use when we want a catch-all but don’t want to use the value in the catch-all pattern: _ is a special pattern that matches any value and does not bind to that value. This tells Rust we aren’t going to use the value, so Rust won’t warn us about an unused variable.
+
+fn main() {
+    let dice_roll = 9;
+    match dice_roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        _ => reroll(),
+    }
+
+    fn add_fancy_hat() {}
+    fn remove_fancy_hat() {}
+    fn reroll() {}
+}
 
 
-9.7.23 
-had a crazy dream, was running around looking for the train to take, was literally in the open space (outdoor).. i think i was with jiaxin.. then we went to a house that has all kinda weird n scary stuff, its like escape room lol 
+```
 
-Regarding exception handling.. 
-SL: exception is not control flow.. 
-It's shouldn't be used to deal with a known issue.. for example I know that the query would fail and affect the subsequent queries, I should handle the error at the beginning instead of re-connecting to the db to resolve the error. 
+## The `if let`
 
-I agree actually, `exception` is the last resolution and shouldn't be used as control flow, I will keep this in mind.  
+Notes: 
+```
+In other words, you can think of if let as syntax sugar for a match that runs code when the value matches one pattern and then ignores all other values.
+```
